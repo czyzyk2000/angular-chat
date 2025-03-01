@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "public": true,
   "builds": [
     {
       "src": "package.json",
@@ -11,15 +12,14 @@
   ],
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.+\\.[a-z0-9]+)$",
+      "src": "/(assets/.+)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
       "dest": "/$1"
+    },
+    {
+      "src": "/(.*).(.+)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "dest": "/$1.$2"
     },
     {
       "src": "/(.*)",
