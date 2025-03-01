@@ -1,33 +1,13 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "chat-backend/dist/main.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist/chat-frontend"
-      }
-    }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/socket.io/(.*)", "destination": "/api" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "chat-backend/dist/main.js"
-    },
-    {
-      "src": "/socket.io/(.*)",
-      "dest": "chat-backend/dist/main.js"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+  "functions": {
+    "api/index.js": {
+      "memory": 1024,
+      "maxDuration": 10
     }
-  ]
+  }
 }
