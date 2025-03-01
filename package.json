@@ -1,0 +1,13 @@
+{
+  "name": "angular-chat-monorepo",
+  "version": "1.0.0",
+  "description": "Angular Chat Application with NestJS Backend",
+  "scripts": {
+    "build": "cd chat-backend && npm install && npm run build",
+    "start": "cd chat-backend && npm run start:prod"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "private": true
+}
