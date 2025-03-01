@@ -2,17 +2,21 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "buildCommand": "npm run vercel-build"
-      }
+      "src": "dist/main.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "dist/main.js"
+    },
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "dist/main.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
