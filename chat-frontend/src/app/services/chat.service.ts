@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Message {
   id?: number;
@@ -13,7 +14,7 @@ export interface Message {
   providedIn: 'root'
 })
 export class ChatService {
-  private socket = io('http://localhost:3001');
+  private socket = io(environment.apiUrl);
 
   sendMessage(message: Message) {
     this.socket.emit('sendMessage', message);

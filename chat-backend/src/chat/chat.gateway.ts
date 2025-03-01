@@ -1,8 +1,6 @@
 import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Message } from '../entities/message.entity';
+import { PrismaService } from '../prisma/prisma.service';
 
 @WebSocketGateway({
   cors: {
@@ -14,18 +12,18 @@ export class ChatGateway {
   server: Server;
 
   constructor(
-    @InjectRepository(Message)
-    private messageRepository: Repository<Message>,
+    private prisma: PrismaService,
   ) {}
 
   @SubscribeMessage('sendMessage')
   async handleMessage(@MessageBody() data: { username: string; content: string }) {
-    const message = this.messageRepository.create({
-      username: data.username,
-      content: data.content,
+    const message = await this.prisma.message.create({
+      data: {
+        username: data.username,
+        content: data.content,
+      },
     });
 
-    await this.messageRepository.save(message);
     this.server.emit('newMessage', message);
     
     return message;
@@ -33,9 +31,9 @@ export class ChatGateway {
 
   @SubscribeMessage('findAllMessages')
   async findAll() {
-    const messages = await this.messageRepository.find({
-      order: {
-        createdAt: 'DESC',
+    const messages = await this.prisma.message.findMany({
+      orderBy: {
+        createdAt: 'desc',
       },
       take: 50,
     });
