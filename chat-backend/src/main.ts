@@ -15,9 +15,12 @@ async function bootstrap() {
       app.useStaticAssets(publicPath);
     } else {
       console.log('Public directory does not exist at:', publicPath);
+      // Create the public directory if it doesn't exist
+      fs.mkdirSync(publicPath, { recursive: true });
+      console.log('Created public directory at:', publicPath);
     }
     
-    // Set up a fallback route to serve index.html for Angular routes
+    // Set up API routes with prefix
     app.setGlobalPrefix('api', { exclude: [''] });
     
     app.enableCors({
@@ -26,12 +29,22 @@ async function bootstrap() {
       credentials: true,
     });
 
+    // Add a catch-all route to serve index.html for Angular routes
+    app.use('*', (req, res, next) => {
+      const indexPath = join(publicPath, 'index.html');
+      if (fs.existsSync(indexPath) && !req.path.startsWith('/api') && !req.path.startsWith('/socket.io')) {
+        res.sendFile(indexPath);
+      } else {
+        next();
+      }
+    });
+
     const port = process.env.PORT || 3001;
     await app.listen(port);
     console.log(`Application is running on: http://localhost:${port}`);
   } catch (error) {
-    console.error('Failed to start the application:', error);
-    process.exit(1);
+    console.error('Error starting the application:', error);
   }
 }
+
 bootstrap();

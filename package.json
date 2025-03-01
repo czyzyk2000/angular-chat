@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "vercel-build": "ng build"
+    "vercel-build": "ng build && mkdir -p chat-backend/public && cp -r dist/chat-frontend/* chat-backend/public/",
+    "postinstall": "npm run build"
   },
   "private": true,
   "dependencies": {

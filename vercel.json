@@ -23,7 +23,8 @@
       "dest": "chat-backend/dist/main.js"
     },
     {
-      "handle": "filesystem"
+      "src": "/(.*\\.(js|css|ico|png|jpg|svg|json))",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
