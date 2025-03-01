@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "chat-backend/dist/main.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "chat-backend/dist/main.js"
+    },
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "chat-backend/dist/main.js"
+    }
+  ]
+}
