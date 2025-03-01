@@ -1,13 +1,42 @@
 {
-  "name": "angular-chat-monorepo",
-  "version": "1.0.0",
-  "description": "Angular Chat Application with NestJS Backend",
+  "name": "chat-frontend",
+  "version": "0.0.0",
   "scripts": {
-    "build": "cd chat-backend && npm install && npm run build",
-    "start": "cd chat-backend && npm run start:prod"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "vercel-build": "ng build"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^19.1.0",
+    "@angular/cdk": "^19.1.5",
+    "@angular/common": "^19.1.0",
+    "@angular/compiler": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@angular/material": "^19.1.5",
+    "@angular/platform-browser": "^19.1.0",
+    "@angular/platform-browser-dynamic": "^19.1.0",
+    "@angular/router": "^19.1.0",
+    "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.1",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
   },
-  "private": true
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.1.8",
+    "@angular/cli": "^19.1.8",
+    "@angular/compiler-cli": "^19.1.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.4.2"
+  }
 }

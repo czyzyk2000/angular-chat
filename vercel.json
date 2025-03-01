@@ -4,6 +4,13 @@
     {
       "src": "chat-backend/dist/main.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/chat-frontend"
+      }
     }
   ],
   "routes": [
@@ -16,8 +23,11 @@
       "dest": "chat-backend/dist/main.js"
     },
     {
+      "handle": "filesystem"
+    },
+    {
       "src": "/(.*)",
-      "dest": "chat-backend/dist/main.js"
+      "dest": "/index.html"
     }
   ]
 }

@@ -14,7 +14,7 @@ export interface Message {
   providedIn: 'root'
 })
 export class ChatService {
-  private socket = io(`${environment.apiUrl}/api/socket`);
+  private socket = io(`${window.location.origin}/api/socket`);
 
   sendMessage(message: Message) {
     this.socket.emit('sendMessage', message);
