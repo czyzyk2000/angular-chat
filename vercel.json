@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "cd chat-backend && npm install && npm run build && cd ../chat-frontend && npm install && npm run build && cp -r dist/chat-frontend/* ../chat-backend/public/",
+  "buildCommand": "cd chat-backend && npm install && npm run build && cd ../chat-frontend && npm install && npm run build && mkdir -p ../chat-backend/public && xcopy /E /I /Y .\\chat-frontend\\dist\\chat-frontend\\* .\\chat-backend\\public\\",
   "outputDirectory": "chat-backend/dist",
   "installCommand": "echo 'Skipping root install'",
-  "framework": "node"
+  "framework": "nextjs"
 }
