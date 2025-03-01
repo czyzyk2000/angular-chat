@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend-url.vercel.app'
+  apiUrl: 'https://angular-chat-backend.vercel.app'
 };

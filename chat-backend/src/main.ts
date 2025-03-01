@@ -6,7 +6,9 @@ import * as fs from 'fs';
 
 async function bootstrap() {
   try {
-    const app = await NestFactory.create<NestExpressApplication>(AppModule);
+    const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+      cors: true // Enable CORS for all routes
+    });
     
     // Check if public directory exists
     const publicPath = join(__dirname, '..', 'public');
@@ -21,22 +23,14 @@ async function bootstrap() {
     }
     
     // Set up API routes with prefix
-    app.setGlobalPrefix('api', { exclude: [''] });
+    app.setGlobalPrefix('api');
     
+    // Configure CORS more explicitly
     app.enableCors({
-      origin: ['http://localhost:4200', 'https://angular-chat-liart.vercel.app', 'https://angular-chat-rho.vercel.app'], 
-      methods: ['GET', 'POST'],
+      origin: true, // Allow all origins
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       credentials: true,
-    });
-
-    // Add a catch-all route to serve index.html for Angular routes
-    app.use('*', (req, res, next) => {
-      const indexPath = join(publicPath, 'index.html');
-      if (fs.existsSync(indexPath) && !req.path.startsWith('/api') && !req.path.startsWith('/socket.io')) {
-        res.sendFile(indexPath);
-      } else {
-        next();
-      }
+      allowedHeaders: ['Content-Type', 'Authorization'],
     });
 
     const port = process.env.PORT || 3001;

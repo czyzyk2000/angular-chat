@@ -449,11 +449,24 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   constructor(private chatService: ChatService) {}
 
   async ngOnInit() {
-    this.messages = await this.chatService.loadMessages();
-    this.chatService.getMessages().subscribe((message: Message) => {
-      this.messages.push(message);
-      this.scrollToBottom();
-    });
+    try {
+      console.log('Initializing chat component');
+      // Load existing messages
+      this.messages = await this.chatService.loadMessages();
+      console.log('Loaded initial messages:', this.messages);
+      
+      // Subscribe to new messages
+      this.chatService.getMessages().subscribe((message: Message) => {
+        console.log('Component received message:', message);
+        // Check if message already exists to avoid duplicates
+        if (!this.messages.some(m => m.id === message.id)) {
+          this.messages.push(message);
+          this.scrollToBottom();
+        }
+      });
+    } catch (error) {
+      console.error('Error initializing chat:', error);
+    }
   }
 
   ngAfterViewChecked() {
