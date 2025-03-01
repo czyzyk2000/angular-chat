@@ -1,7 +1,0 @@
-{
-  "buildCommand": "cd chat-frontend && npm install && npm run build",
-  "outputDirectory": "chat-frontend/dist/chat-frontend",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}

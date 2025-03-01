@@ -6,6 +6,7 @@ import { PrismaService } from '../prisma/prisma.service';
   cors: {
     origin: '*',
   },
+  namespace: '/api/socket',
 })
 export class ChatGateway {
   @WebSocketServer()
